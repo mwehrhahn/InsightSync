@@ -1,4 +1,6 @@
-from sqlalchemy import Column, Integer, String, Text, DateTime, func
+from sqlalchemy import Column, Integer, String, Text, DateTime, ForeignKey, func
+from sqlalchemy.orm import relationship
+
 from app.core.database import Base
 
 class Note(Base):
@@ -13,3 +15,6 @@ class Note(Base):
         server_default=func.now(),
         onupdate=func.now(),
     )
+
+    owner_id = Column(Integer, ForeignKey("users.id"), nullable=False)
+    owner = relationship("User", backref="notes")
