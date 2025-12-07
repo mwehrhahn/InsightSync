@@ -11,9 +11,9 @@ router = APIRouter(prefix="/notes", tags=["notes"])
 
 @router.post("/", response_model=NoteOut, status_code=status.HTTP_201_CREATED)
 def create_note(
-        note_in: NoteCreate,
-        db: Session = Depends(get_db),
-        current_user: User = Depends(get_current_user)
+    note_in: NoteCreate,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user)
 ):
     note = Note(
         title=note_in.title,
@@ -40,9 +40,9 @@ def list_notes(
 
 @router.get("/{note_id}", response_model=NoteOut)
 def get_note(
-        note_id: int,
-        db: Session = Depends(get_db),
-        current_user: User = Depends(get_current_user),
+    note_id: int,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
 ):
     note = (
         db.query(Note)
@@ -58,10 +58,10 @@ def get_note(
 
 @router.put("/{note_id}", response_model=NoteOut)
 def update_note(
-        note_id: int,
-        note_in: NoteUpdate,
-        db: Session = Depends(get_db),
-        current_user: User = Depends(get_current_user),
+    note_id: int,
+    note_in: NoteUpdate,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
 ):
     note = (
         db.query(Note)
